@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<div>
+
+    <form action="" method="post" onsubmit="console.log('h')">
+    {% csrf_token %}
+    <p>{{status}}</p>
+   {{form.as_p}}
+    <button>Submit</button>
+    </form>
+</div>
+<script src="{% static 'js.js' %}"></script>
+{% endblock %}

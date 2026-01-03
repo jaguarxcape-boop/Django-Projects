@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pageantry Home</title>
+    <style>
+        /* Reset and basic styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(to bottom, gold, gold);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            color: #6a0dad;
+            font-size: 28px;
+        }
+
+        header nav button {
+            margin-left: 15px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #fff;
+            transition: 0.3s;
+        }
+
+        .login-btn {
+            background-color: #6a0dad;
+        }
+
+        .login-btn:hover {
+            background-color: #4b0082;
+        }
+
+        .register-btn {
+            background-color: #ff66b3;
+        }
+
+        .register-btn:hover {
+            background-color: #ff3399;
+        }
+
+        /* Hero section */
+        .hero {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        .hero h2 {
+            font-size: 48px;
+            color: #4b0082;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #6a0dad;
+            margin-bottom: 30px;
+            max-width: 600px;
+        }
+
+        .hero .buttons button {
+            margin: 0 10px;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            color: #fff;
+            transition: 0.3s;
+        }
+
+        .hero .get-started {
+            background-color: #ff66b3;
+        }
+
+        .hero .get-started:hover {
+            background-color: #ff3399;
+        }
+
+        .hero .learn-more {
+            background-color: #6a0dad;
+        }
+
+        .hero .learn-more:hover {
+            background-color: #4b0082;
+        }
+
+        .hero img {
+            margin-top: 30px;
+            max-width: 350px;
+            width: 100%;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #fff;
+            color: #D4AF37;
+            /* Gold color */
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+            font-weight: bold;
+        }
+
+        /* Responsive */
+        @media (min-width: 768px) {
+            .hero {
+                flex-direction: row;
+                text-align: left;
+                justify-content: space-around;
+            }
+
+            .hero img {
+                margin-top: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Pageantry</h1>
+        <nav>
+            <button class="login-btn" onclick="window.location.href='login.html'">Login</button>
+            <button class="register-btn" onclick="window.location.href='register.html'">Register</button>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-text">
+            <h2>Welcome to Pageantry</h2>
+            <p>Discover beauty, elegance, and talent. Join competitions, track winners, and celebrate pageantry with us.
+            </p>
+            <div class="buttons">
+                <button class="get-started" onclick="window.location.href='register.html'">Get Started</button>
+                <button class="learn-more" onclick="window.location.href='about.html'">Learn More</button>
+            </div>
+        </div>
+        <img src="https://cdn.pixabay.com/photo/2017/02/15/10/43/beauty-2068964_1280.png" alt="Pageant Silhouette">
+    </section>
+
+    <footer>
+        © 2025 Pageantry. All rights reserved.
+    </footer>
+
+</body>
+
+</html>

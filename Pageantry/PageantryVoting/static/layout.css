@@ -1,0 +1,42 @@
+ 
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: black;
+            color: white;
+            width: 100%;
+            margin: 0;
+        }
+
+        .hero>aside {
+            display: flex;
+            align-items: center;
+            width: 50%;
+        }
+
+        .hero>aside>ul {
+            list-style-type: none;
+            display: inline-flex;
+            justify-content: space-around;
+            width: 100%;
+        }
+
+        .hero>aside>ul>li>a {
+            color: white;
+            text-decoration: none;
+        }
+ 
+
+        form{
+            display:flex;
+            flex-direction: column;
+            align-items: center;
+            height: 200px;
+            margin:auto;
+            width: 70vw;
+            justify-content: space-between;
+        }
+
+
+       

@@ -1,0 +1,130 @@
+/* Container & layout */
+.profile-container {
+  /* max-width: 500px; */
+  margin:-20px auto;
+  padding: .2rem 2rem 2rem;
+  background: #9c27b0; /* black background */
+  border-radius: 15px;
+  box-shadow: 0 15px 40px rgba(255, 215, 0, 0.2); /* gold shadow */
+  color: #fff;
+  font-family: 'Arial', sans-serif;
+  animation: fadeIn 1s ease forwards;
+}
+
+.profile-title {
+  text-align: center;
+  font-size: 2.2rem;
+  letter-spacing: 1px;
+  animation: slideDown 1s ease forwards;
+}
+
+/* Form */
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin:auto;
+  background-color: rgb(195, 195, 195)
+  
+}
+
+.input-group {
+  position: relative;
+  display: flex;
+  flex-direction: column-reverse;
+  overflow: hidden;
+
+}
+
+/* Floating labels */
+.input-group input {
+  padding: 12px 10px;
+  border: none;
+
+  border-bottom: 2px solid #555;
+  background: transparent;
+  color: #9c27b0;
+  font-size: 1rem;
+  transition: all 0.4s ease;
+}
+
+.input-group input:focus {
+  border-bottom-color: #9c27b0; /* gold on focus */
+  outline: none;
+  box-shadow: 0 0 8px #9c27b0;
+}
+
+.input-group label {
+  position: absolute;
+  left: 10px;
+  bottom: 12px;
+  pointer-events: none;
+ 
+  transition: 0.3s ease all;
+}
+
+ 
+/* Highlight effect */
+.input-group .highlight {
+  position: absolute;
+  height: 2px;
+  width: 100%;
+  bottom: 0;
+  left: -100%;
+  /* background: linear-gradient(90deg, #9c27b0, #fff); */
+  transition: all 0.4s ease;
+}
+
+.input-group input:focus ~ .highlight {
+  left: 0;
+}
+
+/* Submit button */
+.submit-btn {
+  position: relative;
+  padding: 14px 30px;
+  border: 2px solid #9c27b0;
+  background: #000;
+  color: #ffd700;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 50px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+}
+
+.submit-btn:hover {
+  background: #9c27b0;
+  color: #000;
+  /* box-shadow: 0 0 15px #ffd700, 0 0 30px #ffd700 inset; */
+  transform: scale(1.05);
+}
+
+/* Button inner effect */
+.submit-btn .btn-effect {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 100%;
+  top: 0;
+  left: 0;
+  /* background: rgba(255, 215, 0, 0.2); */
+  transition: 0.4s ease;
+}
+
+.submit-btn:hover .btn-effect {
+  width: 100%;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(20px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+
+@keyframes slideDown {
+  from {opacity: 0; transform: translateY(-20px);}
+  to {opacity: 1; transform: translateY(0);}
+}

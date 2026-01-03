@@ -1,0 +1,158 @@
+* {
+  box-sizing: border-box;
+}
+
+.header {
+  margin: -8px;
+  position: relative;
+  top: 0;
+  z-index: 1000;
+  background: linear-gradient(135deg, #0b0b0b, #1a1a1a);
+ 
+}
+
+.header-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Logo */
+.logo{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+   cursor: pointer;
+      transition:.2s ease-in-out;
+    
+}
+.logo:hover{
+/* box-shadow: 1px 2px 2px 1px gold; */
+
+}
+.logo img{
+  border-radius: 100px;
+}
+.logo span {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: gold;
+}
+
+/* Desktop Nav */
+.nav {
+  display: flex;
+  gap: 2rem;
+}
+
+.nav .nava::after {
+  text-decoration: none;
+  color: #111;
+  font-weight: 500;
+  position: relative;
+}
+
+.nav .nava::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  width: 0;
+  height: 2px;
+  background: #2563eb;
+  transition: 0.3s;
+}
+
+.nav .nava:hover::after {
+  width: 100%;
+}
+
+/* CTA */
+.cta button {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  background: gold;
+  color: black;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.cta button:hover {
+  background: #1d4ed8;
+}
+
+/* Hamburger */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.hamburger span {
+  width: 25px;
+  height: 3px;
+  background: gold;
+  transition: 0.3s;
+}
+
+/* Hamburger Animation */
+.hamburger.open span:nth-child(1) {
+  transform: rotate(45deg) translateY(8px);
+}
+
+.hamburger.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.open span:nth-child(3) {
+  transform: rotate(-45deg) translateY(-8px);
+}
+
+/* Mobile Menu */
+.mobile-menu {
+  display: none;
+  flex-direction: column;
+  gap: 1.2rem;
+  padding: 1.5rem;
+  background: white;
+  border-top: 1px solid #eee;
+}
+
+.mobile-menu .nava {
+  text-decoration: none;
+  font-weight: 600;
+  color: black;
+  
+  
+}
+
+.mobile-menu button {
+  padding: 0.8rem;
+  border: none;
+  background: gold;
+
+  color: black;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .nav,
+  .cta {
+    display: none;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .mobile-menu.show {
+    display: flex;
+  }
+}

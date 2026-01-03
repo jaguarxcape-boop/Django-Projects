@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'layout.css' %}">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <section class="header">
+
+    </section>
+
+    <section class="hero">
+        <aside>
+            <h1>Pageantry Voting</h1>
+        </aside>
+
+        <aside>
+            <ul>
+                <li><a href="{% url 'register' %}">Register</a></li>
+                <li><a href="/auth/login">Login</a></li>
+                <li><a href="/auth/logout">Logout</a></li>
+
+
+            </ul>
+        </aside>
+    </section>
+
+
+{% block content %}
+
+{% endblock %}
+
+</body>
+<footer class="hero">
+    Footer Here
+</footer>
+
+</html>

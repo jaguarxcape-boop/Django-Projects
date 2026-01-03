@@ -1,0 +1,58 @@
+.topnav {
+  height: 64px;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 28px;
+  border-bottom: 3px solid #ffea61; /* yellow accent */
+}
+
+/* Brand */
+.brand {
+  font-size: 20px;
+  font-weight: 700;
+  color: #9c27b0; /* purple */
+}
+
+/* Center nav */
+.topnav-center {
+  display: flex;
+  gap: 24px;
+}
+
+.nav-link {
+  text-decoration: none;
+  font-weight: 500;
+  color: #333;
+  padding-bottom: 4px;
+  border-bottom: 3px solid transparent;
+}
+
+.nav-link:hover {
+  color: #9c27b0;
+}
+
+.nav-link.active {
+  color: #9c27b0;
+  border-bottom: 3px solid #9c27b0;
+}
+
+/* Right section */
+.topnav-right {
+  display: flex;
+  align-items: center;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #9c27b0;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  cursor: pointer;
+}

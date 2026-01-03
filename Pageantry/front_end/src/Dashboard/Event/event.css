@@ -1,0 +1,141 @@
+.fade-in {
+  animation: fadeUp 0.5s ease-out;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.empty-events-wrapper {
+    
+  min-height: calc(100vh - 64px); /* minus top nav height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffea61; 
+}
+
+.empty-events-card {
+  background: #ffffff;
+  padding: 40px 32px;
+  border-radius: 18px;
+  text-align: center;
+ 
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+.empty-events-card .icon {
+  font-size: 68px;
+  margin-bottom: 12px;
+}
+
+.empty-events-card h2 {
+  font-size: 42px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #1f1f1f;
+}
+
+.empty-events-card p {
+  font-size: 24px;
+  color: #555;
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+
+.create-btn {
+  padding: 14px 28px;
+  border-radius: 14px;
+  border: none;
+  background-color: #9c27b0; /* purple */
+  color: #ffffff;
+  font-size: 25px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.create-btn:hover {
+  background-color: #7b1fa2;
+}
+
+
+
+/* Page background */
+.event-wrapper {
+  background-color: #ffea61; /* yellow background from screenshot */
+  min-height: 100vh;
+ 
+}
+
+/* White card */
+.event-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 28px;
+  max-width: 520px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+}
+
+/* Title */
+.event-card h2 {
+  margin-bottom: 20px;
+  font-size: 22px;
+  font-weight: 700;
+  color: #1f1f1f;
+}
+
+/* Form groups */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: #2b2b2b;
+}
+
+/* Inputs */
+.form-group input {
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #d1d1d1;
+  font-size: 14px;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #9c27b0; /* purple focus */
+}
+
+/* Row for dates */
+.form-row {
+  display: flex;
+  gap: 12px;
+}
+
+/* Purple button */
+.primary-btn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 14px;
+  background-color: #9c27b0; /* pageantry purple */
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.primary-btn:hover {
+  background-color: #7b1fa2;
+}
