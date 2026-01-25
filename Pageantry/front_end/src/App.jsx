@@ -4,13 +4,15 @@ import Layout from './Layout/layout.jsx'
 import { useState, useEffect } from 'react'
 import Register from './Auth/register.jsx'
 import Login from './Auth/login.jsx'
-import PasswordReset from './Auth/passwordreset.jsx'
+import PasswordReset from './Auth/password_reset_start.jsx'
+import VerifyEmailPage from './Auth/verifyemail.jsx'
 // import { fetchAccessToken } from './fetchAccessToken.js'
 import Homepage from './Home/index.jsx'
 import { Navigate } from 'react-router'
 // import { ProtectRequestsApi } from './apiCalls.js'
 import Notification from './Components/notification/notification.jsx'
 import DashboardLayout from './Dashboard/index.jsx'
+import PasswordResetDone from './Auth/password_reset_end.jsx'
 
 
 const PublicRoute = ({ authenticated, children }) => {
@@ -68,15 +70,20 @@ const App = () => {
                     <Route path="auth/login" element={
                         <PublicRoute authenticated={authenticated}><Login setAuthenticated={setAuthenticated} /></PublicRoute>
                     } />
+                    <Route path="auth/verify-email" element={
+                        <PublicRoute authenticated={authenticated}><VerifyEmailPage /></PublicRoute>
+                    } />
                     <Route path="auth/passwordreset" element={
                         <PublicRoute authenticated={authenticated}><PasswordReset /></PublicRoute>
                     } />
-
+                    <Route path="auth/password_reset_done" element={
+                        <PublicRoute authenticated={authenticated}><PasswordResetDone /></PublicRoute>
+                    } />
                     <Route index element={<Homepage authenticated={authenticated} />} /> {/* / */}
                 </Route>
 
                 {/* Dashboard routes */}
-                <Route path="dashboard/*" element={authenticated.status ? <DashboardLayout setnotification={setnotification} /> : <Navigate to="/auth/login" replace />}/>
+                <Route path="dashboard/*" element={authenticated.status ? <DashboardLayout setnotification={setnotification} /> : <Navigate to="/auth/login" replace />} />
             </>
         )
     );
@@ -99,9 +106,3 @@ const App = () => {
     )
 }
 export default App
-
-
-
-
-
-

@@ -1,0 +1,55 @@
+/* ===================== CSS =====================
+Move this to EventCard.css if needed
+================================================ */
+
+.event-card {
+  background: #0f172a;
+  color:white;
+  border: 1px solid #1e293b;
+  border-radius: 14px;
+  padding: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.event-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
+}
+
+.event-card-header {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.6rem;
+}
+
+.event-date {
+  background: #1e293b;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.event-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.event-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.event-location {
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+.event-description {
+  font-size: 0.9rem;
+  line-height: 1.45;
+  opacity: 0.85;
+}

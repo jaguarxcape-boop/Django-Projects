@@ -92,49 +92,7 @@ h3 {
   color: #9c27b0;
 }
 
-/* ===========================
-   FORMS (Profile, Security, Create Event)
-   =========================== */
 
-form {
-  max-width: 520px;
-  background-color: #ffffff;
-  padding: 28px;
-  border-radius: 16px;
-  border: 1px solid #eee;
-}
-
-label {
-  display: block;
-  margin-bottom: 18px;
-  font-size: 14px;
-  color: #444;
-}
-
-input,
-textarea,
-select {
-  width: 100%;
-  margin-top: 6px;
-  padding: 12px 14px;
-  font-size: 15px;
-  border-radius: 10px;
-  border: 1px solid #ddd;
-  outline: none;
-  background-color: #fff;
-}
-
-textarea {
-  resize: vertical;
-  min-height: 100px;
-}
-
-input:focus,
-textarea:focus,
-select:focus {
-  border-color: #9c27b0;
-  box-shadow: 0 0 0 3px rgba(156, 39, 176, 0.15);
-}
 
 /* ===========================
    BUTTONS
@@ -278,4 +236,66 @@ tr:not(:last-child) {
 .dropdown-menu button:hover {
   background-color: #f3e5f5;
   color: #7b1fa2;
+}
+
+/* ===========================
+   QUICK LINKS (Dashboard Home)
+   =========================== */
+
+.quick-links-grid { 
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.quick-link-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 24px;
+  text-decoration: none;
+  color: #333;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.quick-link-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  border-color: #9c27b0;
+}
+
+.card-icon {
+  font-size: 32px;
+  margin-bottom: 16px;
+  background-color: #f3e5f5;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-content h3 {
+  margin: 0 0 8px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+}
+
+.quick-link-card:hover .card-content h3 {
+  color: #9c27b0;
+}
+
+.card-content p {
+  margin: 0;
+  font-size: 14px;
+  color: #777;
+  line-height: 1.4;
 }

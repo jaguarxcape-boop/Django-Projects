@@ -10,45 +10,6 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework_simplejwt.authentication import JWTAuthentication
-# from django.views.decorators.csrf import csrf_exempt
-# from django.utils.decorators import method_decorator
-class RegisterView(APIView):
-    permission_classes = [AllowAny] 
-    def post(self,request):
-        form = CreateUserForm(request.data or None)
-        if form.is_valid():
-            user = form.save()
- 
-            # Send email verification
-            # email_address = EmailAddress.objects.get_or_create(user=user, email=user.email)[0]
-            # email_address.send_confirmation(request)
-           
-            context= {
-            "code":"registration_successful",
-            "type":"success",
-            "statusText":['Account registration successful','Proceed To Login']
-        }
-            return Response(context)
-
-         
-        context= {
-            "code":"invalid_form",
-            "type":"error",
-            "statusText":form.errors
-        }
-        return Response(context)
-        return Response({"status":"invalid_form", "type":"error","statusText":['Debuggin Mode']})
-            # IN ORGANIZER APP, AN ORGANIZER PROFILE IS CREATED UPON THE CREATION OF A NEW USER
- 
- 
-
-
-
-
-
-
-
-            # return Response({"status":False, "code": "error","statusText":[status.HTTP_401_UNAUTHORIZED,"No refresh token"]})
 
 
 class RefreshTokenView(APIView):

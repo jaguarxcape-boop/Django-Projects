@@ -1,15 +1,17 @@
-import './topBar.css'
+  import "./topBar.css";
 import React from "react";
 // import { useAuth } from "../context/AuthContext";
 
 export default function Topbar({ pageTitle,setnotification }) {
   //   const { user } = useAuth();
+ 
 
   // Use first letter of username for avatar
   //   const avatarLetter = user?.username ? user.username[0].toUpperCase() : "O";
 
   return (
     <div className="topbar">
+
       <h3>{pageTitle || "Dashboard"}</h3>
 
       <div className="user-info">
@@ -21,6 +23,10 @@ export default function Topbar({ pageTitle,setnotification }) {
     </div>
   );
 }
+
+
+
+
 
 import { useState } from "react";
 import Logout from "../../Auth/logout";
@@ -36,6 +42,7 @@ export function AvatarDropdown({setnotification}) {
       <div className="avatar-circle" onClick={toggleDropdown}>
         {/* Just an example initial */}
         A
+        FG
       </div>
 
       {open && (

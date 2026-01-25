@@ -12,7 +12,7 @@ export default function OrganizerProfile({ setnotification }) {
     address: "",
   });
   useEffect(() => {
-    FETCHDASHBOARDPROFILEAPI(setFormData)
+    // FETCHDASHBOARDPROFILEAPI(setFormData)
   }, [])
   const handleChange = (e) => {
     setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));

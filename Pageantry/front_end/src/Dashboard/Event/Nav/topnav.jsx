@@ -14,8 +14,18 @@ export default function TopNav() {
       <nav className="topnav-center sidebar" style={{flexDirection:"row",width:"max-content",marginBottom:"10px"}}>
      
           <NavLink to={DASHBOARDURLS().events.create}>Create</NavLink>
-           <NavLink to={DASHBOARDURLS().events.published}>Published Events</NavLink>
+           {/* <NavLink to={DASHBOARDURLS().events.published}>Published Events</NavLink> */}
            <NavLink to={DASHBOARDURLS().events.unpublished}>Unpublished Events</NavLink>
+
+
+          {/* {
+
+          } */}
+          {/* <NavLink to ={DASHBOARDURLS().events.create}>Details</NavLink>
+          <NavLink to ={DASHBOARDURLS().events.create.categories}>Categories</NavLink>
+          <NavLink to ={DASHBOARDURLS().events.create.contestants}>Contestants</NavLink> */}
+          {/* <NavLink to ={DASHBOARDURLS().events.create.publish}>Publish</NavLink> */}
+
 
          {/* <NavLink to="/dashboard/security">Security</NavLink>
           <NavLink to="/dashboard/events">Events</NavLink>

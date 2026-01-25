@@ -1,0 +1,21 @@
+{{ app_name }} - Email Verification
+
+Hello {{ user.username }},
+
+Welcome to {{ app_name }}! To complete your registration, please verify your email address by clicking the link below.
+
+This link will expire in {{ expiration_hours }} hours.
+
+{{ verification_link }}
+
+---
+
+For security reasons, never share this link with anyone.
+
+Did not sign up?
+If you didn't create this account, you can safely ignore this email. Your account will not be activated without email verification.
+
+---
+
+© 2026 {{ app_name }}. All rights reserved.
+If you have any questions, contact our support team.

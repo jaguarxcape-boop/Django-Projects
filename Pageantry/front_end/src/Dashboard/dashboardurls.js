@@ -2,15 +2,20 @@ import { ProtectRequestsApi } from "../apiCalls"
 import { BASE_URL } from "../baseUrl"
 import { fetchAccessToken } from "../fetchAccessToken"
 
-export const DASHBOARDAPIURLS = () => ({ "home": "/dashboard/", "profile": 'profile/', "events": 'profile/events/', "settings": 'dashboard/settings/' })
+export const DASHBOARDAPIURLS = () => ({
+    "home": "/dashboard/", "profile": 'profile/', "events": 'profile/events/',
 
-export const EVENTAPIURLS = ()=> ({'create': 'event/create/'})
-export const DASHBOARDURLS = () => ({
+    "settings": 'dashboard/settings/'
+})
+
+export const EVENTAPIURLS = (event_id) => ({ 'create': 'event/create/', 'manage': `event${event_id}/manage/`, "unpublished": 'event/unpublished' })
+export const DASHBOARDURLS = (event_id) => ({
     "home": "/dashboard/", "profile": 'dashboard/profile/',
     "events": {
-        "home": 'dashboard/events/', 
-        "unpublished": "/dashboard/events/unpublished", 
-        "create": "/dashboard/events/create/", "published": "/dashboard/events/published/"
+        "unpublished": "/dashboard/events/unpublished/",
+        "create": "/dashboard/events/create/",
+
+        "manage": "/dashboard/events/" + event_id + "/manage/",
     }, "settings": 'dashboard/settings/'
 })
 

@@ -13,12 +13,12 @@ export const Message = ({ statusText, type }) => {
 
 }
 
-export default function Form({ children, name, body, setAuthenticated }) {
+export default function Form({is_validated, setShowResendActivationLink, style, setpassword_reset_state, children, name, body, setAuthenticated,setButton }) {
 
     const [state, setState] = useState({ type: '', code: "", statusText: [] })
-
+    
     return (
-        <form className="auth-form" method="POST" onSubmit={(e) => SubmitForm({ setAuthenticated, e, name, body, setState })}>
+        <form  className="auth-form" method="POST" onSubmit={(e) => SubmitForm({setpassword_reset_state, setAuthenticated, setButton, e, name, body, setState, is_validated,setShowResendActivationLink })} style={style}>
 
             {state.statusText &&
                 <Message statusText={state.statusText} type={state.type} />

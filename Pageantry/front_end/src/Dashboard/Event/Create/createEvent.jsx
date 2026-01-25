@@ -1,117 +1,186 @@
-import { useState } from "react";
-import { submit_event_creation_form } from ".";
-import { Message } from "../../../Components/forms/form";
-// import "./create_event.css";
+import { useEffect, useState } from "react";
+import {
+  Paper,
+  Stepper,
+  Step,
+  StepLabel,
+  Typography,
+  Box,
+  Button,
+  Alert
+} from "@mui/material";
 
-export default function CreateEvent() {
-  const [formData, setFormData] = useState({
+import WIZARDSTEPONE from "./WIZARDSTEPONE";
+import WIZARDSTEPTWO from "./STEPTWO/WIZARDSTEPTWO";
+import WIZARDSTEPTHREE from "./WIZARDSTEPTHREE";
+import { submitEventCreationForm } from "./functions";
 
+export const STORAGE_KEY = "event_wizard_data";
+
+const EMPTY_EVENT = {
+  name: "",
+  description: "",
+  banner: null,
+  startTime: "",
+  endTime: "",
+  amountPerVote: "",
+  categories: [{ id: 1, name: "", contestants: [{ id: 1, name: "", bio: "", image: "", hobby: "" }] }],
+};
+
+export default function CreateEventWizard() {
+  const [currentStep, setCurrentStep] = useState(0);
+  const [eventData, setEventData] = useState(() => {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    return saved ? JSON.parse(saved) : EMPTY_EVENT;
   });
+  const [formMessage, setFormMessage] = useState({ type: "", statusText: [] });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleChange = (e) => {
-    const { name, value, files } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: files ? files[0] : value,
-    }));
+
+  /* ---------------- Navigation ---------------- */
+  const nextStep = () => {
+    setCurrentStep((s) => s + 1);
+    saveData();
   };
 
-  const [form_message, setform_message] = useState({ type: "", statusText: [] })
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    submit_event_creation_form({ formData, setform_message })
-    // TODO: send payload to Django API
+  const prevStep = () => {
+    setCurrentStep((s) => s - 1);
+    saveData();
   };
-  return (
-    <div className="event-wrapper">
-      <div className="event-card">
-        <h2>Create Pageantry Event</h2>
-        {/* {form_message.type && */}
-          {/* <Message type={form_message.type} statusText= */}
-          {/* {["hello"]} */}
-          {/* // {form_message.statusText} */}
+
+  const saveData = () => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(eventData));
+
+  };
+
+  const resetWizard = () => {
+    if (window.confirm("Are you sure you want to clear all data and start over?")) {
+      setEventData(EMPTY_EVENT);
+      setCurrentStep(0);
+      localStorage.removeItem(STORAGE_KEY);
+    }
+  };
+
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(eventData));
+
+  }, [eventData])
+
+  const handleSubmit = async () => {
+    if (isSubmitting) return;
+    setIsSubmitting(true);
+    setFormMessage({ type: "", statusText: [] });
+
+    const formData = new FormData();
+    formData.append("name", eventData.name);
+    formData.append("description", eventData.description);
+    formData.append("start_time", eventData.startTime);
+    formData.append("end_time", eventData.endTime);
+    formData.append("amount_per_vote", eventData.amountPerVote);
+
+    // Clone categories to modify for submission without affecting state
+    const categoriesPayload = JSON.parse(JSON.stringify(eventData.categories));
+
+    // Process contestant images
+    for (let i = 0; i < categoriesPayload.length; i++) {
+      const category = categoriesPayload[i];
+      if (category.contestants) {
+        for (let j = 0; j < category.contestants.length; j++) {
+          const contestant = category.contestants[j];
           
-          {/* /> */}
-          {/* }   */}
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label>Event Name</label>
-            <input required
-              type="text"
-              name="name"
-              placeholder="Event Name"
-              value={formData.name}
-              onChange={handleChange}
+          // Check if image exists and is a base64 string (from preview)
+          const imageSrc = contestant.image && (typeof contestant.image === 'object' ? contestant.image.previewUrl : contestant.image);
 
-            />
-          </div>
-           <div className="form-group">
-            <label>Event Description</label>
-            <input required
-              type="text"
-              name="bio"
-              placeholder="Describe the event"
-              value={formData.bio}
-              onChange={handleChange}
-             
-            />
-          </div>
+          if (imageSrc && typeof imageSrc === 'string' && imageSrc.startsWith('data:')) {
+            try {
+              const res = await fetch(imageSrc);
+              const blob = await res.blob();
+              const filename = (typeof contestant.image === 'object' && contestant.image.file) ? contestant.image.file.name : `contestant_${i}_${j}.jpg`;
 
-          <div className="form-group">
-            <label>Event Image</label>
-            <input required
-              type="file"
-              name="banner"
-              accept="image/*"
-              onChange={handleChange}
-            />
-            <label>This image will be used to customize your event on the site.</label>
-          </div>
+              formData.append(`categories[${i}][contestants][${j}][image]`, blob, filename);
+              contestant.image = null; // Remove base64 from JSON
+            } catch (err) {
+              console.error("Error processing contestant image:", err);
+            }
+          }
+        }
+      }
+    }
 
-          <div className="form-row">
-            <div className="form-group">
-              <label>Start Date & Time</label>
-              <input required
-                type="datetime-local"
-                name="start_time"
-                value={formData.start_time}
-                onChange={handleChange}
+    formData.append("categories", JSON.stringify(categoriesPayload));
 
-              />
-            </div>
+    try {
+      if (eventData.banner?.previewUrl) {
+        const res = await fetch(eventData.banner.previewUrl);
+        const blob = await res.blob();
+        formData.append("banner", blob, eventData.banner.file.name);
+      }
 
-            <div className="form-group">
-              <label>End Date & Time</label>
-              <input required
-                type="datetime-local"
-                name="end_time"
-                value={formData.end_time}
-                onChange={handleChange}
+      await submitEventCreationForm({ formData, setFormMessage });
+    } catch (error) {
+      setFormMessage({ type: "error", statusText: ["An unexpected error occurred. Please try again."] });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
-              />
-            </div>
-          </div>
+  return (
+    <Paper sx={{ p: 4, maxWidth: 1000, mx: "auto", height: "85vh", display: "flex", flexDirection: "column" }}>
+      <Box sx={{ flexShrink: 0 }}>
+      <Typography variant="h4" mb={3}>
+        Create Pageantry Event
+      </Typography>
 
-          <div className="form-group">
-            <label>Amount Per Vote</label>
-            <input required
-              type="number"
-              step="0.01"
-              name="amount_per_vote"
-              placeholder="e.g. 5.00"
-              value={formData.amount_per_vote}
-              onChange={handleChange}
+      <Stepper activeStep={currentStep} sx={{ mb: 4 }}>
+        {["Event Details", "Categories", "Review"].map((label) => (
+          <Step key={label}>
+            <StepLabel>{label}</StepLabel>
+          </Step>
+        ))}
+      </Stepper>
+      </Box>
+      <Box sx={{ flexGrow: 1, overflowY: "auto", px: 1 }}>
+        {currentStep === 0 && (
+          <WIZARDSTEPONE
+            eventData={eventData}
+            setEventData={setEventData}
+            onNext={nextStep} />
+        )}
 
-            />
-          </div>
+        {currentStep === 1 && (
+          <WIZARDSTEPTWO
+            eventData={eventData}
+            setEventData={setEventData}
+            onNext={nextStep}
+            onBack={prevStep} />
 
-          <button type="submit" className="primary-btn">
-            Create Event
-          </button>
-        </form>
-      </div>
-    </div>
+        )}
+
+        {formMessage.statusText.length > 0 && !(currentStep === 2 && formMessage.type === 'error') && (
+          <Box mb={2}>
+            {formMessage.statusText.map((text, index) => (
+              <Alert key={index} severity={formMessage.type} sx={{ mb: 1 }}>{text}</Alert>
+            ))}
+          </Box>
+        )}
+
+        {currentStep === 2 && (
+          <WIZARDSTEPTHREE
+            eventData={eventData}
+            onBack={prevStep}
+            onReset={resetWizard}
+            formMessage={formMessage}
+            setFormMessage={setFormMessage} />
+        )}
+
+        {currentStep === 2 && (
+          <Box textAlign="right" mt={3}>
+            <Button variant="contained" onClick={handleSubmit} disabled={isSubmitting}>
+              {isSubmitting ? "Submitting..." : "Submit Event"}
+            </Button>
+          </Box>
+        )}
+      </Box>
+    </Paper>
   );
 }

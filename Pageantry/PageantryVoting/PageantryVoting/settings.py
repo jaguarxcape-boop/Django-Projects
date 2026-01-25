@@ -46,38 +46,13 @@ INSTALLED_APPS = [
 ]
 SITE_ID = 1
 
-# dj-rest-auth JWT usage
-# REST_USE_JWT = True
-# import os
-# Allauth / Email settings
-# ACCOUNT_EMAIL_REQUIRED = 'optional'
-# ACCOUNT_EMAIL_VERIFICATION = True  # triggers verification email
-# ACCOUNT_USERNAME_REQUIRED = False  # if login is by email
-# ACCOUNT_AUTHENTICATION_METHOD = "username_email"  # allow login by either username or email
-# ACCOUNT_UNIQUE_EMAIL = True
-
 # Use your custom user model
-# AUTH_USER_MODEL = 'yourapp.CustomUser'
+# settings.py
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+AUTH_USER_MODEL = 'Auth.ExtendedUser'
 
-# Email backend (replace with real SMTP config)
-
-
-BREVO_SMTP_USER="9ed984001@smtp-brevo.com"
-BREVO_SMTP_PASSWORD="xsmtpsib-9a37ab1729cf6faa414d3d1ed193c6086e3a83dc43f692487f80f8c0f8f28dee-a602BYyBcc3HUlf8"
-
-
-
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = 'smtp-relay.brevo.com'
-# EMAIL_PORT = 587
-# EMAIL_USE_TLS = True
-# EMAIL_HOST_USER = os.environ.get('BREVO_SMTP_USER')
-# EMAIL_HOST_PASSWORD = os.environ.get('BREVO_SMTP_PASSWORD')
-# DEFAULT_FROM_EMAIL = 'noreply@yourdomain.com'
 # ---------------------------
 # MIDDLEWARE
-# ---------------------------
-# DEFAULT_AUTO_FIELD = "BigAutoField"
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "corsheaders.middleware.CorsMiddleware",
@@ -155,7 +130,10 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 # ---------------------------
 # REST_FRAMEWORK SETTINGS 
 # ---------------------------
- 
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT =  BASE_DIR / 'media'
+
 
 #  --------------------------
 # REACT CROSS ORIGIN REQUEST SETTINGS
@@ -179,11 +157,6 @@ CSRF_TRUSTED_ORIGINS = [
 
 # -------------------------------------------------------
 
-# Cookies
-SESSION_COOKIE_SECURE = False
-SESSION_COOKIE_SAMESITE = "Lax"
-
-
 # REST Framework + JWT
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
@@ -200,3 +173,27 @@ SIMPLE_JWT = {
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
     "AUTH_HEADER_TYPES": ("Bearer",),
 }
+
+# ---------------------------
+# EMAIL CONFIGURATION (Brevo)
+# ---------------------------
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp-relay.brevo.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = '9ed984001@smtp-brevo.com'
+EMAIL_HOST_PASSWORD = 'xsmtpsib-9a37ab1729cf6faa414d3d1ed193c6086e3a83dc43f692487f80f8c0f8f28dee-j0CksWSrN1t691em'
+DEFAULT_FROM_EMAIL = 'nanayawfreduah@gmail.com'
+
+# ---------------------------
+# FRONTEND CONFIGURATION
+# ---------------------------
+FRONTEND_URL = 'http://localhost:5173'
+
+
+
+
+
+# IMAGE AND FILE UPLOAD LIMIT
+DATA_UPLOAD_MAX_MEMORY_SIZE = 20 * 1024 * 1024   # 20MB
+FILE_UPLOAD_MAX_MEMORY_SIZE = 10 * 1024 * 1024  # 10MB

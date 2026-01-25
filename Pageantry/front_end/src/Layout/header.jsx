@@ -63,7 +63,7 @@ export default function Header({
                     <button>Get Started</button>
                 </div> */}
                 {authenticated.status &&
-                <Logout setnotification={setnotification}/>
+                    <Logout setnotification={setnotification} />
                 }
                 {/* Hamburger */}
                 <div
@@ -82,6 +82,7 @@ export default function Header({
                 <a onClick={() => setMenuOpen(false)} href="#about">About</a>
                 <a onClick={() => setMenuOpen(false)} href="#services">Services</a>
                 <a onClick={() => setMenuOpen(false)} href="#contact">Contact</a>
+                <Link to={AuthUrls().reset_password}>Change Password</Link>
                 <button>Get Started</button>
             </div>
         </header >
