@@ -24,9 +24,9 @@ export default function Footer() {
           <h4>Quick Links</h4>
           <ul>
             <li><a href="#">Home</a></li>
-            <li><a href="#">Competitions</a></li>
-            <li><a href="#">Contestants</a></li>
-            <li><a href="#">Gallery</a></li>
+            <li><a href="#">Live Events</a></li>
+            <li><a href="#">Brand My Event</a></li>
+            <li><a href="#">About Us</a></li>
             <li><a href="#">Contact</a></li>
           </ul>
         </div>

@@ -41,73 +41,15 @@ const EmptyEvents = ({ setState }) => {
         </div>
     );
 }
-export default function Events() {
-
-    const fetchEvents = async () => {
-
-        try {
-            const access_token = localStorage.getItem("access_token")
-            const response = await fetch(`${BASE_URL(DASHBOARDAPIURLS().events)}`, {
-                headers: {
-
-                    "Authorization": `Bearer ${access_token}`, // ✅ FIXED
-                },
-            })
-
-
-            if (response.ok) {
-                const data = await (response.json())
-
-                const profile = {
-
-                    ...data,
-
-                }
-                console.log(profile)
-                // setFormData({
-                //     ...data.profile,
-                //     ...data.phone,
-                //     ...data.email,
-                // })
-            }
-
-
-
-        } catch (error) {
-            console.error("Protected request failed:", error)
-
-        }
-
-    }
-    useEffect(() => {
-        fetchAccessToken({ setAuthenticated: undefined, setnotification: undefined, OKAYRESPONSECALLBACK: fetchEvents })
-    }, [])
-
+export default function EventsRouter() {
     return (
         <>
-
-
-            <TopNav />
-
-            {/* {state.length === 0 ? */}
-            {/* // <EmptyEvents setState={setState} /> */}
-            {/* // : */}
+        
             <Routes>
-
-
-                {/* <> */}
                 <Route path="create/" element={<CreateEvent />} />
                 <Route path='unpublished/' element={<ViewEvents />} />
                 <Route path=":id/manage/" element={<EventManagement />} />
-
-                {/* <Route path='view/:eventId/' element={<div>View Event</div>} />
-                    <Route path='edit/:eventId/' element={<div>Edit Event</div>} />
-                    <Route path='/' element={<EmptyEvents setState={setState} />} /> */}
-                {/* </>} */}
             </Routes>
-            {/* } */}
-
-
         </>
     );
 }

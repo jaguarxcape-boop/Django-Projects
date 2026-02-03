@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import './card.css'
 import { DASHBOARDURLS } from "../../dashboardurls";
 // EventCard Component
@@ -9,12 +9,12 @@ import { DASHBOARDURLS } from "../../dashboardurls";
 
 export default function EventCard({ event, onClick }) {
 
-
+    const navigate = useNavigate()
 
     return (
 
 
-        <div className="event-card" onClick={onClick} style={{ backgroundSize: "cover", backgroundImage: `url(${event.banner})`, backgroundRepeat: "no-repeat" }}>
+        <div className="event-card" onClick={()=>navigate(DASHBOARDURLS(event.id).events.manage)} style={{ backgroundSize: "cover", backgroundImage: `url(${event.banner})`, backgroundRepeat: "no-repeat" }}>
             <div className="event-card-header">
                 <span className="event-date">
                     Scheduled to start on {

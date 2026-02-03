@@ -31,7 +31,9 @@ class EmailService:
         """
         try:
             # Build verification URL
-            frontend_url = settings.FRONTEND_URL
+            # frontend_url = settings.FRONTEND_URL
+            # for_mobile_purposes =
+            frontend_url = settings.PHONE_VERIFICATION_URL
             verification_link = f"{frontend_url}/auth/verify-email?token={user.email_verification_token}"
 
             # Render HTML template

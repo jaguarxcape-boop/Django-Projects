@@ -21,7 +21,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # ---------------------------
 SECRET_KEY = 'django-insecure-=qugfqweat5f_0fc+s6=yeolooyugs%g6=&m5bk*0^s1-=s(h$'
 DEBUG = True
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    # '192.168.1.100',
+    # 'localhost',
+    # '127.0.0.1',
+    # '10.187.99.190'
+    '*'
+]
 
 # ---------------------------
 # APPLICATIONS
@@ -41,6 +47,7 @@ INSTALLED_APPS = [
     'Auth',
     # 'Home',
     'Event',
+    'Analytics',
     # rest_framework
     'rest_framework',
 ]
@@ -138,9 +145,13 @@ MEDIA_ROOT =  BASE_DIR / 'media'
 #  --------------------------
 # REACT CROSS ORIGIN REQUEST SETTINGS
 # ---------------------------
+
 CORS_ALLOWED_ORIGINS =[
     'http://localhost:5173',
-    'http://127.0.0.1:5173'
+    'http://127.0.0.1:5173',
+    'http://192.168.1.100:5173',
+    'http://10.187.99.190:5173',
+    
 ]
 CORS_ALLOW_CREDENTIALS = True
 
@@ -152,6 +163,7 @@ CORS_ALLOW_CREDENTIALS = True
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
+   
 ]
 
 
@@ -182,14 +194,14 @@ EMAIL_HOST = 'smtp-relay.brevo.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = '9ed984001@smtp-brevo.com'
-EMAIL_HOST_PASSWORD = 'xsmtpsib-9a37ab1729cf6faa414d3d1ed193c6086e3a83dc43f692487f80f8c0f8f28dee-j0CksWSrN1t691em'
+EMAIL_HOST_PASSWORD = 'xsmtpsib-9a37ab1729cf6faa414d3d1ed193c6086e3a83dc43f692487f80f8c0f8f28dee-UBQUJuBb9aI7xMRA'
 DEFAULT_FROM_EMAIL = 'nanayawfreduah@gmail.com'
 
 # ---------------------------
 # FRONTEND CONFIGURATION
 # ---------------------------
 FRONTEND_URL = 'http://localhost:5173'
-
+PHONE_VERIFICATION_URL = 'http://10.187.99.190:5173/'
 
 
 

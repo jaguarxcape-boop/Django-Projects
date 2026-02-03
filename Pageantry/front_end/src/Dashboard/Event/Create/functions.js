@@ -3,7 +3,7 @@ import { fetchAccessToken } from "../../../fetchAccessToken.js";
 import { DASHBOARDURLS, EVENTAPIURLS } from "../../dashboardurls.js";
 import { STORAGE_KEY } from "./createEvent.jsx";
 
-export const submitEventCreationForm = ({ formData, setFormMessage }) => {
+export const submitEventCreationForm = ({ formData, setFormMessage,navigate }) => {
     const submit = async () => {
         try {
             const response = await fetch(
@@ -17,27 +17,33 @@ export const submitEventCreationForm = ({ formData, setFormMessage }) => {
                 }
             );
 
+
             const data = await response.json();
 
+
             if (!response.ok) {
+                console.log(data)
                 setFormMessage({
                     type: "error",
-                    statusText: data.message || data.statusText || data.detail || ["Failed to create event"],
+
+
+                    statusText: typeof data.statusText === "object" ? [JSON.stringify(data.statusText)] : data.message || data.statusText || data.detail || "Failed to create event",
                 });
                 return;
             }
 
             setFormMessage({
                 type: "success",
-                statusText: ["Event created successfully"],
+                statusText: data.statusText,
             });
+            navigate(DASHBOARDURLS().events.unpublished)
             // localStorage.removeItem(STORAGE_KEY)
             // GO TO THE RECENTLY CREATED EVENT
             // window.location.pathname = DASHBOARDURLS().events.unpublished
         } catch (error) {
             setFormMessage({
                 type: "error",
-                statusText: ["Network error. Please try again."],
+                statusText: ["Network error. Please try again.", error],
             });
         }
     };

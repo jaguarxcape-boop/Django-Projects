@@ -2,13 +2,14 @@
 import { ProtectRequestsApi } from "../apiCalls"
 import { AuthUrls, BASE_URL, CSRFToken } from "../baseUrl"
 import { fetchAccessToken } from "../fetchAccessToken"
-
+import {Link} from 'react-router-dom'
 const Logout = ({ setnotification }) => {
 
     return <>
-        <div className="cta" onClick={() => deleteToken({ setnotification })}>
-            <button>Logout</button>
-        </div>
+        <Link to={AuthUrls().login} className="mobile-auth-btn login" onClick={() => deleteToken({ setnotification })}>
+            Logout
+        </Link>
+
     </>
 }
 

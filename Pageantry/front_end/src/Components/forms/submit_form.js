@@ -10,12 +10,6 @@ const HandleRegistrationForm = ({ data, setState }) => {
 
 
   }
-
-
-  // HANDLE INVALID REGISTRATION FORM
-  // if (data.code == "invalid_form") {
-  //   return setState(data)
-  // }
 }
 
 
@@ -31,7 +25,6 @@ const HandleLoginForm = ({ data, setAuthenticated, setShowResendActivationLink }
   });
 
   if (data.code == 'email_not_verified') {
-    alert("Running Here")
     return setShowResendActivationLink(true)
   }
   window.location.replace("/");
@@ -46,9 +39,10 @@ export const SubmitForm = async ({
   setButton,
   setAuthenticated,
   setpassword_reset_state,
-  setShowResendActivationLink
+  setShowResendActivationLink,
 }) => {
   e.preventDefault();
+
 
 
   // Enable loading state
@@ -82,6 +76,11 @@ export const SubmitForm = async ({
   });
 
 
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => {
+    controller.abort();
+  }, 30000); // 30 seconds
+
   try {
     const res = await fetch(BASE_URL(`${AuthUrls()[name]}/`), {
       method: "POST",
@@ -90,11 +89,12 @@ export const SubmitForm = async ({
         "X-CSRFToken": CSRFToken,
       },
       body: JSON.stringify(body),
+      signal: controller.signal,
     });
 
+    clearTimeout(timeoutId);
 
     const data = await res.json();
-
 
     // Stop loading
     if (typeof setButton === "function") {
@@ -106,7 +106,6 @@ export const SubmitForm = async ({
 
 
     // Register
-    console.log(name)
     if (name === "register") {
 
       return HandleRegistrationForm({ setState, data });
@@ -150,6 +149,17 @@ export const SubmitForm = async ({
         data.statusText || [res.statusText] || ["An error occurred. Please try again."],
     });
   } catch (error) {
+    if (error.name === 'AbortError') {
+      if (typeof setButton === "function") {
+        setButton({ is_submitting_data: false });
+      }
+      return setState({
+        type: 'error',
+        code: 'timeout',
+        statusText: ['The request timed out. Please try again.'],
+      });
+    }
+
     if (typeof setButton === "function") {
       setButton({ is_submitting_data: false });
     }

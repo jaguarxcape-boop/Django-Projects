@@ -3,8 +3,7 @@
   color: #f5f5f5;
   padding-top: 60px;
   font-family: "Poppins", sans-serif;
-  margin: -8px;
-
+  z-index: 1000 !important;
 }
 
 .footer-container {

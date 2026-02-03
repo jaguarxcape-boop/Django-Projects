@@ -17,65 +17,74 @@ export const Categories = ({ categories, editingCategoryIndex, handleEditCategor
     return <>
         <Box mb={3}>
             {(categories || []).map((category, catIndex) => (
-                <Paper key={category.id} sx={{
-                    p: 2, mb: 2, border: "1px solid #ccc", backgroundColor: " rgba(255,215,0,.4)"
+                <>
+                    <Paper key={category.id} sx={{
+                        p: 2, mb: 2, border: "1px solid #ccc", backgroundColor: " rgba(255,215,0,.4)"
 
-                }}>
+                    }}>
 
-                    <Paper style={{ width: "max-content", padding: "10px", float: "right" }}>
-                        {`${catIndex + 1} of ${categories.length} categories`}
+                        <Paper style={{ width: "max-content", padding: "10px", float: "right" }}>
+                            {`${catIndex + 1} of ${categories.length} categories`}
+                        </Paper>
+                        {/* Category Name */}
+                        <Box display="flex" alignItems="center" gap={2} mb={1}>
+                            {editingCategoryIndex === catIndex ? (
+                                <>
+                                    <TextField
+                                        size="small"
+                                        value={editingCategoryValue}
+                                        onChange={(e) => setEditingCategoryValue(e.target.value)}
+                                        onKeyDown={(e) => e.key === "Enter" && handleSaveCategoryEdit(catIndex)}
+                                        autoFocus
+                                    />
+                                    <Button variant="contained" onClick={() => handleSaveCategoryEdit(catIndex)}>Save</Button>
+                                    <Button variant="outlined" onClick={() => { setEditingCategoryIndex(null); setEditingCategoryValue(""); }}>Cancel</Button>
+                                </>
+                            ) : (
+                                <>
+                                    <Typography
+                                        title="Click To Edit"
+
+                                        sx={{
+                                            cursor: "pointer", fontWeight: "bold", fontSize: "30px",
+                                            backgroundColor: "linear-gradient(90deg, #9c27b0 0%, #7b1fa2 100%)",
+                                            padding: "10px", borderRadius: "10px"
+                                        }}
+                                        onClick={() => handleEditCategory(catIndex)}
+                                    >
+                                        {category.name}
+                                    </Typography>
+
+                                </>
+                            )}
+                        </Box>
+
+                        {/* Contestants */}
+                        <Contestants
+                            category={category}
+                            editingContestant={editingContestant}
+                            catIndex={catIndex}
+                            setEditingContestant={setEditingContestant}
+                            newContestantName={newContestantName}
+                            setNewContestantName={setNewContestantName}
+
+
+
+                            // non-state functions
+                            handleContestantImageChange={handleContestantImageChange}
+                            handleAddContestant={handleAddContestant}
+                            handleSaveContestantEdit={handleSaveContestantEdit}
+                            handleStartEditingContestant={handleStartEditingContestant}
+                            handleDeleteContestant={handleDeleteContestant}
+
+                        />
                     </Paper>
-                    {/* Category Name */}
-                    <Box display="flex" alignItems="center" gap={2} mb={1}>
-                        {editingCategoryIndex === catIndex ? (
-                            <>
-                                <TextField
-                                    size="small"
-                                    value={editingCategoryValue}
-                                    onChange={(e) => setEditingCategoryValue(e.target.value)}
-                                    onKeyDown={(e) => e.key === "Enter" && handleSaveCategoryEdit(catIndex)}
-                                    autoFocus
-                                />
-                                <Button variant="contained" onClick={() => handleSaveCategoryEdit(catIndex)}>Save</Button>
-                                <Button variant="outlined" onClick={() => { setEditingCategoryIndex(null); setEditingCategoryValue(""); }}>Cancel</Button>
-                            </>
-                        ) : (
-                            <>
-                                <Typography
-                                    title="Click To Edit"
-                                    sx={{ cursor: "pointer", fontWeight: "bold", fontSize: "30px", color: "white", background: "black", padding: "10px", borderRadius: "10px" }}
-                                    onClick={() => handleEditCategory(catIndex)}
-                                >
-                                    {category.name}
-                                </Typography>
-                                <Button onClick={() => handleDeleteCategory(catIndex)}
-                                    style={{ color: "white", backgroundColor: "tomato" }}
-                                >Delete</Button>
-                            </>
-                        )}
-                    </Box>
 
-                    {/* Contestants */}
-                    <Contestants
-                        category={category}
-                        editingContestant={editingContestant}
-                        catIndex={catIndex}
-                        setEditingContestant={setEditingContestant}
-                        newContestantName={newContestantName}
-                        setNewContestantName={setNewContestantName}
-
-
-
-                        // non-state functions
-                        handleContestantImageChange={handleContestantImageChange}
-                        handleAddContestant={handleAddContestant}
-                        handleSaveContestantEdit={handleSaveContestantEdit}
-                        handleStartEditingContestant={handleStartEditingContestant}
-                        handleDeleteContestant={handleDeleteContestant}
-
-                    />
-                </Paper>
+                    <Button onClick={() => handleDeleteCategory(catIndex)}
+                        style={{ backgroundColor: "tomato" }}
+                    >Delete</Button></>
             ))}
+
         </Box>
     </>
 }
@@ -155,7 +164,7 @@ const Contestants = ({
                                 </Box>
                                 <Box display="flex" gap={1}>
                                     <Button variant="contained" onClick={handleSaveContestantEdit}>Save</Button>
-                                    <Button variant="contained" color="white" onClick={() => setEditingContestant({ catIndex: null, contIndex: null, name: "", bio: "", hobby: "", image: null, previewUrl: null })}>Cancel</Button>
+                                    <Button variant="contained" onClick={() => setEditingContestant({ catIndex: null, contIndex: null, name: "", bio: "", hobby: "", image: null, previewUrl: null })}>Cancel</Button>
                                 </Box>
                             </>
                         ) : (<>
@@ -175,9 +184,9 @@ const Contestants = ({
 
                                 <Box title="Click To Edit" display="flex" alignItems="center" gap={2}>
 
-                                    <Button style={{ float: "right", color: "white" }} variant="outlined" onClick={() => handleStartEditingContestant(catIndex, contIndex)}>Edit</Button>
+                                    <Button style={{ float: "right" }} variant="outlined" onClick={() => handleStartEditingContestant(catIndex, contIndex)}>Edit</Button>
                                 </Box>
-                                <Button title="Click To Delete" style={{ float: "right", color: "white" }} variant="outlined" onClick={() => handleDeleteContestant(catIndex, contIndex)}>Delete</Button>
+                                <Button title="Click To Delete" style={{ float: "right" }} variant="outlined" onClick={() => handleDeleteContestant(catIndex, contIndex)}>Delete</Button>
                             </Box>
                         </>
                         )}

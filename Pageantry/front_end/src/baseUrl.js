@@ -1,7 +1,7 @@
 
 
+// export const BASE_URL = (path) => `http://10.187.99.190:8000/${path}`
 export const BASE_URL = (path) => `http://localhost:8000/${path}`
-
 export const CSRFToken = document.cookie.split("=")[1]
 
 
@@ -11,3 +11,4 @@ export const AuthUrls = () => ({
 
     resend_email_verificaition_link: 'auth/resend_email_verificaition_link'
 })
+

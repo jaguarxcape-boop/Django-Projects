@@ -1,74 +1,115 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./Header.css";
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 import logo from "/images/mainLogo.webp"
 import { useNavigate } from 'react-router-dom';
 import { AuthUrls, BASE_URL } from "../baseUrl";
 import Logout from "../Auth/logout.jsx";
+
+import { FaBuilding, FaDashcube, FaHome, FaVoteYea } from "react-icons/fa";
 
 export default function Header({
     authenticated,
     setnotification
 }) {
     const navigate = useNavigate()
+    const location = useLocation();
     const [menuOpen, setMenuOpen] = useState(false);
-    const AuthLinks = [
-        { to: `events`, name: "All Events" },
-        { to: "events/", name: "Other Events" },
 
-    ]
+    // Close menu when location changes
+    useEffect(() => {
+        setMenuOpen(false);
+    }, [location]);
+
+    const isHomePage = location.pathname === '/';
+    const isVotingPage = location.pathname.includes('/vote');
+    const isDashboard = location.pathname.includes('/dashboard');
 
     return (
-        <header className="header">
+
+        !isDashboard &&
+        <header className="header" >
+            {/* Hamburger */}
+
             <div className="header-container">
 
                 {/* Logo */}
-                <div className="logo" onClick={() => navigate('/')}>
-                    <img src={logo} height={"50px"} alt="Logo" />
-                    <span>Pageantry Vote</span>
+
+                <div>
+
+                    <div className="logo-section" onClick={() => navigate('/')}>
+
+                        <img src={logo} alt="Pageantry Logo" className="logo-img" />
+
+                        <div className="logo-text">
+
+                            <h1>Pageantry</h1>
+                            <span className="logo-subtitle">Vote</span>
+                        </div>
+                    </div>
                 </div>
 
 
-                <nav className="nav">
 
-                    {authenticated.status ?
-                        <>  {AuthLinks.map((link, key) =>
-                            <>
-                                <div className="cta" id={key} to={link.to}>
-                                    <button>{link.name.toUpperCase()}</button>
-                                </div>
 
-                            </>)}
-                            <div className="logo" style={{ "flexDirection": "column", borderRadius: "100px" }} >
-                                <img src={logo} height={"50px"} alt="Logo" />
-                            </div>
+
+                {/* Desktop Navigation */}
+                <nav className="nav-desktop">
+                    <Link to="/" className={`nav-link ${isHomePage ? 'active' : ''}`}>
+                        <span className="nav-icon"><FaHome /></span>
+                        <span>Home</span>
+                    </Link>
+
+                    <Link to="/vote" className={`nav-link ${isVotingPage ? 'active' : ''}`}>
+                        <span className="nav-icon"><FaVoteYea /></span>
+                        <span>Vote</span>
+                    </Link>
+
+                    {authenticated.status && !isDashboard && (
+                        <>
+                            <Link to="/dashboard" className={`nav-link ${isDashboard ? 'active' : ''}`}>
+                                <span className="nav-icon">🏆</span>
+                                <span>Dashboard</span>
+                            </Link>
+                            {/* <a href="/#features" className="nav-link">
+                                <span className="nav-icon">✨</span>
+                                <span>Features</span>
+                            </a> */}
                         </>
-                        : <>
+                    )}
+                    {authenticated.status ? (
 
-                            <div className="cta" >
-                                <button>
-                                    <Link className="get-started linkasbutton" to={AuthUrls().login} style={{ color: "black" }}>
-                                        Register / Login
-                                    </Link>
-                                </button>
+                        <>
 
-                            </div>
-
-
-                        </>}
+                            {/* <div className="mobile-logout"> */}
+                            <Logout setnotification={setnotification} />
+                            {/* </div> */}
+                        </>
+                    ) : (
+                        <>
+                            <Link to={AuthUrls().login} className="mobile-auth-btn login" onClick={() => setMenuOpen(false)}>
+                                Login
+                            </Link>
+                            <Link to={AuthUrls().register} className="mobile-auth-btn register" onClick={() => setMenuOpen(false)}>
+                                Sign Up
+                            </Link>
+                        </>
+                    )}
+                    {/* {!authenticated.status && (
+                        <a href="/#features" className="nav-link">
+                            <span className="nav-icon"><FaBuilding /></span>
+                            <span>Features</span>
+                        </a>
+                    )} */}
                 </nav>
 
-                {/* CTA Button */}
-                {/* <div className="cta">
-                    <button>Get Started</button>
-                </div> */}
-                {authenticated.status &&
-                    <Logout setnotification={setnotification} />
-                }
+
+
                 {/* Hamburger */}
                 <div
                     className={`hamburger ${menuOpen ? "open" : ""}`}
                     onClick={() => setMenuOpen(!menuOpen)}
+                    style={isDashboard ? { marginLeft: 'auto' } : {}}
                 >
                     <span></span>
                     <span></span>
@@ -78,13 +119,51 @@ export default function Header({
 
             {/* Mobile Menu */}
             <div className={`mobile-menu ${menuOpen ? "show" : ""}`}>
-                <a onClick={() => setMenuOpen(false)} href="#home">Home</a>
-                <a onClick={() => setMenuOpen(false)} href="#about">About</a>
-                <a onClick={() => setMenuOpen(false)} href="#services">Services</a>
-                <a onClick={() => setMenuOpen(false)} href="#contact">Contact</a>
-                <Link to={AuthUrls().reset_password}>Change Password</Link>
-                <button>Get Started</button>
+                <Link to="/" className={`mobile-link ${isHomePage ? 'active' : ''}`} onClick={() => setMenuOpen(false)}>
+                    🏠 Home
+                </Link>
+                <Link to="/vote" className={`mobile-link ${isVotingPage ? 'active' : ''}`} onClick={() => setMenuOpen(false)}>
+                    🗳️ Vote
+                </Link>
+
+                {authenticated.status && (!isDashboard &&
+                    <>
+
+                        <Link to="/dashboard" className={`mobile-link ${isDashboard ? 'active' : ''}`} onClick={() => setMenuOpen(false)}>
+                            🏆 Dashboard
+                        </Link>
+                        {/* <a href="/#features" className="mobile-link" onClick={() => setMenuOpen(false)}>
+                            ✨ Features
+                        </a> */}
+                    </>
+                )}
+
+                {/* {!authenticated.status && (
+                    <a href="/#features" className="mobile-link" onClick={() => setMenuOpen(false)}>
+                        ✨ Features
+                    </a>
+                )} */}
+
+                {authenticated.status ? (
+
+                    <>
+
+
+                        <Logout setnotification={setnotification} />
+
+                    </>
+                ) : (
+                    <>
+                        <Link to={AuthUrls().login} className="mobile-auth-btn login" onClick={() => setMenuOpen(false)}>
+                            Login
+                        </Link>
+                        <Link to={AuthUrls().register} className="mobile-auth-btn register" onClick={() => setMenuOpen(false)}>
+                            Sign Up
+                        </Link>
+                    </>
+                )}
             </div>
-        </header >
-    );
+        </header>
+
+    )
 }

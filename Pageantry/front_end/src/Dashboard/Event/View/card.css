@@ -9,6 +9,8 @@ Move this to EventCard.css if needed
   border-radius: 14px;
   padding: 1rem;
   cursor: pointer;
+  margin:10px;
+  width: 70vw;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -27,7 +29,7 @@ Move this to EventCard.css if needed
   background: #1e293b;
   padding: 0.3rem 0.7rem;
   border-radius: 999px;
-  font-size: 0.75rem;
+  font-size: 1.3rem;
   font-weight: 600;
 }
 

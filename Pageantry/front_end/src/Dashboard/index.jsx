@@ -3,10 +3,11 @@
 // import OrganizerProfile from "./Profile/profile.jsx";
 import "./index.css";
 import Topbar from "./TopBar/topBar.jsx";
-import {Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
-import Events from "./Event/event.jsx";
 import Sidebar from "./Sidebar/sidebar.jsx";
+import Analytics from "./Analytics/index.jsx";
+import EventsRouter from "./Event/event.jsx";
 
 
 export default function DashboardLayout({ setnotification }) {
@@ -20,11 +21,10 @@ export default function DashboardLayout({ setnotification }) {
       <Sidebar />
 
       <div className="dashboard-content">
-        <Topbar setnotification={setnotification} />
         <main>
           <Routes>
-            <Route path="events/*" element={<Events setnotification={setnotification} />} />
-            {/* <Route path="profile/*" element={<OrganizerProfile setnotification={setnotification} />} /> */}
+            <Route path="events/*" element={<EventsRouter setnotification={setnotification} />} />
+            <Route path="analytics/:eventId" element={<Analytics eventId={null} />} />
           </Routes>
 
         </main>

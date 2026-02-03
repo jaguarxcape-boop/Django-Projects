@@ -36,8 +36,10 @@ export const fetchAccessToken = async ({ setAuthenticated, setnotification, OKAY
                     // user: data.user || prev.user
                 }));
                 // ANY CALLBACK THAT WANTS TO RUN WILL RUN HERE
-                OKAYRESPONSECALLBACK != undefined && OKAYRESPONSECALLBACK()
-                return
+                if (OKAYRESPONSECALLBACK) {
+                    return await OKAYRESPONSECALLBACK();
+                }
+                return;
             }
             if (data.status == false) {
                 localStorage.clear()

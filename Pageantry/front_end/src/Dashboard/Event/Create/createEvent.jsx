@@ -10,10 +10,11 @@ import {
   Alert
 } from "@mui/material";
 
-import WIZARDSTEPONE from "./WIZARDSTEPONE";
+import WIZARDSTEPONE from "./STEPONE/WIZARDSTEPONE";
 import WIZARDSTEPTWO from "./STEPTWO/WIZARDSTEPTWO";
 import WIZARDSTEPTHREE from "./WIZARDSTEPTHREE";
 import { submitEventCreationForm } from "./functions";
+import { useNavigate } from "react-router";
 
 export const STORAGE_KEY = "event_wizard_data";
 
@@ -24,11 +25,12 @@ const EMPTY_EVENT = {
   startTime: "",
   endTime: "",
   amountPerVote: "",
-  categories: [{ id: 1, name: "", contestants: [{ id: 1, name: "", bio: "", image: "", hobby: "" }] }],
+  categories: [],
 };
 
 export default function CreateEventWizard() {
   const [currentStep, setCurrentStep] = useState(0);
+  const navigate = useNavigate()
   const [eventData, setEventData] = useState(() => {
     const saved = localStorage.getItem(STORAGE_KEY);
     return saved ? JSON.parse(saved) : EMPTY_EVENT;
@@ -116,7 +118,7 @@ export default function CreateEventWizard() {
         formData.append("banner", blob, eventData.banner.file.name);
       }
 
-      await submitEventCreationForm({ formData, setFormMessage });
+      await submitEventCreationForm({ formData, setFormMessage,navigate });
     } catch (error) {
       setFormMessage({ type: "error", statusText: ["An unexpected error occurred. Please try again."] });
     } finally {
@@ -125,9 +127,9 @@ export default function CreateEventWizard() {
   };
 
   return (
-    <Paper sx={{ p: 4, maxWidth: 1000, mx: "auto", height: "85vh", display: "flex", flexDirection: "column" }}>
-      <Box sx={{ flexShrink: 0 }}>
-      <Typography variant="h4" mb={3}>
+    <Paper sx={{ p: 4, maxWidth: 1200, display: "flex", flexDirection: "column" }}>
+      <Box position={"sticky"} zIndex={1000} bgcolor={'white'} left={0} top={0} padding={'10px'} right={0} sx={{ flexShrink: 1 }}>
+      <Typography variant="h5" mb={3}>
         Create Pageantry Event
       </Typography>
 

@@ -3,6 +3,7 @@ import Form from "../Components/forms/form.jsx"
 import { useState } from "react"
 import { Checkbox, CircularProgress } from "@mui/material"
 import { AuthUrls, BASE_URL } from "../baseUrl.js"
+import { FaEye, FaEyeSlash } from "react-icons/fa"
 
 
 const ResentLoginActivationLink = async ({ e, setShowResendActivationLink }) => {
@@ -33,24 +34,44 @@ const ResentLoginActivationLink = async ({ e, setShowResendActivationLink }) => 
             if (data.code == 'verification_email_sent')
                 return setShowResendActivationLink({ show_activation_link_sent: true })
 
-            return setShowResendActivationLink({showResendButton:true})
+        return setShowResendActivationLink({ showResendButton: true })
 
-         
+
     }
 
     catch (error) {
         alert("The Error ", JSON.stringify(error), " occurred")
     }
 }
-const LoginForm = ({ button, showResendActivationLink, setShowResendActivationLink }) => {
+const LoginForm = ({ button, showResendActivationLink, setShowResendActivationLink,request_timeout }) => {
+
+
+    const [showPassword, setShowPassword] = useState(false)
 
     return <>
         <h2>Welcome Back</h2>
         <p className="auth-subtitle">Sign in to continue</p>
 
         <input type="text" autoComplete="true" name="username" placeholder="Username" required />
-        <input type="password" autoComplete="true" name="password" placeholder="Password" required />
+        <label htmlFor="password">
+            <div className="password-input-wrapper">
+                <input
+                    type={showPassword ? "text" : "password"}
+                    name="password"
+                    autoComplete="true"
+                    placeholder="Password"
+                    required
+                />
+                <span
+                    className="password-toggle"
+                    onClick={() => setShowPassword(!showPassword)}
+                >
 
+                    {showPassword ? <FaEye style={{ color: "#1976d2" }} /> : <FaEyeSlash style={{ color: "#1976d2" }} />}
+
+                </span>
+            </div>
+        </label>
         <div className="auth-options">
             {/* <label>
                 <input type="checkbox" />
@@ -70,7 +91,8 @@ const LoginForm = ({ button, showResendActivationLink, setShowResendActivationLi
                 <CircularProgress />
             </span>
             : <>
-                <button type="submit">Login</button>
+                {request_timeout && <button type="submit">Login</button>}
+
                 {showResendActivationLink.showResendButton && <>
                     <a href="#" className="auth-switch" onClick={(e) => ResentLoginActivationLink({ e, setShowResendActivationLink })}>
 
@@ -100,12 +122,13 @@ const Login = ({ setAuthenticated }) => {
     const [body, setBody] = useState({})
     const [button, setButton] = useState({ is_submitting_data: false })
     const [showResendActivationLink, setShowResendActivationLink] = useState({ show_activation_link_sent: false, showResendButton: false })
+    const [request_timeout, setrequest_timeout] = useState(true)
 
     return <>
 
-        <Form name={"login"} body={body} setShowResendActivationLink={setShowResendActivationLink} setButton={setButton} setAuthenticated={setAuthenticated} options={{ method: "GET" }} >
+        <Form name={"login"} body={body} setShowResendActivationLink={setShowResendActivationLink} setButton={setButton} setAuthenticated={setAuthenticated} options={{ method: "GET" }} setrequest_timeout={setrequest_timeout}>
 
-            <LoginForm setShowResendActivationLink={setShowResendActivationLink} showResendActivationLink={showResendActivationLink} setBody={setBody} button={button} />
+            <LoginForm setShowResendActivationLink={setShowResendActivationLink} showResendActivationLink={showResendActivationLink} setBody={setBody} button={button} request_timeout={request_timeout} />
         </Form>
     </>
 }

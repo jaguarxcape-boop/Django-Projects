@@ -4,33 +4,46 @@
 
 .topbar {
   height: 64px;
-  background-color: #ffffff;
-  border-bottom: 1px solid #eaeaea;
+  background: linear-gradient(90deg, #ffffff 0%, #f9f9fb 100%);
+  border-bottom: 1px solid #e0e0e8;
   padding: 0 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
 .topbar h3 {
-  font-size: 18px;
-  font-weight: 500;
+  font-size: 20px;
+  font-weight: 600;
+  color: #222;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
 }
 
 .topbar .user-info {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
 }
 
 .topbar .avatar {
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  background-color: #9c27b0;
+  background: linear-gradient(135deg, #9c27b0 0%, #7b1fa2 100%);
   color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(156, 39, 176, 0.3);
 }
+
+.topbar .avatar:hover {
+  box-shadow: 0 4px 12px rgba(156, 39, 176, 0.4);
+  transform: scale(1.05);
+}
+

@@ -1,4 +1,5 @@
 
+import './global.css'
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider, } from 'react-router'
 import Layout from './Layout/layout.jsx'
 import { useState, useEffect } from 'react'
@@ -13,6 +14,7 @@ import { Navigate } from 'react-router'
 import Notification from './Components/notification/notification.jsx'
 import DashboardLayout from './Dashboard/index.jsx'
 import PasswordResetDone from './Auth/password_reset_end.jsx'
+import VotingLayout from './Voting/index.jsx'
 
 
 const PublicRoute = ({ authenticated, children }) => {
@@ -61,30 +63,31 @@ const App = () => {
 
     const router = createBrowserRouter(
         createRoutesFromElements(
-            <>
-                {/* Public & main layout */}
-                <Route path="/" element={<Layout authenticated={authenticated} setnotification={setnotification} />}>
-                    <Route path="auth/register" element={
-                        <PublicRoute authenticated={authenticated}><Register /></PublicRoute>
-                    } />
-                    <Route path="auth/login" element={
-                        <PublicRoute authenticated={authenticated}><Login setAuthenticated={setAuthenticated} /></PublicRoute>
-                    } />
-                    <Route path="auth/verify-email" element={
-                        <PublicRoute authenticated={authenticated}><VerifyEmailPage /></PublicRoute>
-                    } />
-                    <Route path="auth/passwordreset" element={
-                        <PublicRoute authenticated={authenticated}><PasswordReset /></PublicRoute>
-                    } />
-                    <Route path="auth/password_reset_done" element={
-                        <PublicRoute authenticated={authenticated}><PasswordResetDone /></PublicRoute>
-                    } />
-                    <Route index element={<Homepage authenticated={authenticated} />} /> {/* / */}
-                </Route>
+            <Route path="/" element={<Layout authenticated={authenticated} setnotification={setnotification} />}>
+                {/* Home & Auth Routes */}
+                <Route index element={<Homepage setnotification={setnotification} authenticated={authenticated} />} />
+                <Route path="auth/register" element={
+                    <PublicRoute authenticated={authenticated}><Register /></PublicRoute>
+                } />
+                <Route path="auth/login" element={
+                    <PublicRoute authenticated={authenticated}><Login setAuthenticated={setAuthenticated} /></PublicRoute>
+                } />
+                <Route path="auth/verify-email" element={
+                    <PublicRoute authenticated={authenticated}><VerifyEmailPage /></PublicRoute>
+                } />
+                <Route path="auth/passwordreset" element={
+                    <PublicRoute authenticated={authenticated}><PasswordReset /></PublicRoute>
+                } />
+                <Route path="auth/password_reset_done" element={
+                    <PublicRoute authenticated={authenticated}><PasswordResetDone /></PublicRoute>
+                } />
 
+                {/* Voting Routes (Public - no authentication required) */}
+                <Route path="vote/*" element={<VotingLayout setnotification={setnotification} />} />
+    
                 {/* Dashboard routes */}
                 <Route path="dashboard/*" element={authenticated.status ? <DashboardLayout setnotification={setnotification} /> : <Navigate to="/auth/login" replace />} />
-            </>
+            </Route>
         )
     );
     return (
